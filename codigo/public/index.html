@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Click Vacinas</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main id="loginScreen" class="login-screen">
+    <section class="login-layout">
+      <aside class="login-intro">
+        <div class="brand-badge">
+          <i class="bi bi-shield-plus"></i>
+          <span>Click Vacinas</span>
+        </div>
+        <h1>Vacinação em dia, sem confusão.</h1>
+        <p>Entre para consultar campanhas ativas, acompanhar sua carteira, ver postos e receber avisos importantes.</p>
+        <div class="login-points">
+          <span><i class="bi bi-megaphone"></i> Campanhas ativas</span>
+          <span><i class="bi bi-clipboard2-pulse"></i> Carteira vacinal</span>
+          <span><i class="bi bi-bell"></i> Avisos oficiais</span>
+        </div>
+      </aside>
+
+      <section class="login-card">
+        <div class="form-title compact">
+          <div>
+            <p class="eyebrow">Acesso</p>
+            <h2>Entrar no sistema</h2>
+          </div>
+        </div>
+
+        <form id="loginForm">
+          <label for="loginUsuario">Login</label>
+          <input id="loginUsuario" class="form-control" autocomplete="username" required>
+
+          <label for="loginSenha">Senha</label>
+          <input id="loginSenha" type="password" class="form-control" autocomplete="current-password" required>
+
+          <div id="loginMessage" class="message-area"></div>
+
+          <div class="login-actions">
+            <button class="btn btn-primary w-100" type="submit">
+              <i class="bi bi-box-arrow-in-right"></i>
+              Entrar
+            </button>
+            <button class="btn btn-outline-primary w-100" type="button" id="openRegister">
+              <i class="bi bi-person-plus"></i>
+              Criar conta
+            </button>
+          </div>
+        </form>
+      </section>
+    </section>
+  </main>
+
+  <main id="appScreen" class="app-screen d-none">
+    <section class="app-shell">
+      <div class="session-row">
+        <div class="brand-badge mini">
+          <i class="bi bi-shield-plus"></i>
+          <span>Click Vacinas</span>
+        </div>
+        <div class="session-actions">
+          <button class="top-alert-button" data-route="alerts" title="Avisos" aria-label="Avisos">
+            <i class="bi bi-bell"></i>
+            <em class="notification-badge d-none" data-alert-badge>0</em>
+          </button>
+          <div class="user-pill">
+            <span id="currentUser"></span>
+            <button id="logoutBtn" title="Sair" aria-label="Sair">
+              <i class="bi bi-box-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <section id="view-home" class="view active">
+        <div class="hero-grid">
+          <div>
+            <p class="eyebrow">Painel de vacinação</p>
+            <h1>Vacinação organizada para cuidar melhor da sua rotina.</h1>
+            <p class="page-copy">Acompanhe campanhas, doses, postos, avisos e registros em uma experiência simples, clara e conectada.</p>
+            <div class="hero-actions">
+              <button class="btn btn-primary user-only" data-route="campaigns"><i class="bi bi-megaphone"></i> Campanhas ativas</button>
+              <button class="btn btn-primary admin-only" data-route="admin"><i class="bi bi-sliders"></i> Administração</button>
+              <button class="btn btn-outline-primary" data-route="vaccination"><i class="bi bi-clipboard2-pulse"></i> Minha vacinação</button>
+            </div>
+          </div>
+          <div class="home-panel">
+            <div class="panel-icon"><i class="bi bi-heart-pulse"></i></div>
+            <h2>Jornada de saúde integrada</h2>
+            <p>Acesse seus avisos, campanhas, registros e carteira de vacinação em um só lugar de forma simples e rápida.</p>
+            <div class="home-metrics">
+              <span><strong id="metricCampaigns">0</strong> campanhas</span>
+              <span><strong id="metricAlerts">0</strong> avisos</span>
+              <span><strong id="metricVaccines">0</strong> vacinas</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="quick-grid">
+          <button class="quick-card user-only" data-route="campaigns"><i class="bi bi-megaphone"></i><span>Campanhas ativas</span><small>Veja somente campanhas disponíveis para participação.</small></button>
+          <button class="quick-card admin-only" data-route="admin"><i class="bi bi-sliders"></i><span>Administração</span><small>Cadastrar campanhas, avisos e notificações.</small></button>
+          <button class="quick-card" data-route="vaccination"><i class="bi bi-clipboard2-pulse"></i><span>Minha vacinação</span><small>Ver progresso, histórico e próximas doses.</small></button>
+          <button class="quick-card" data-route="posts"><i class="bi bi-hospital"></i><span>Postos</span><small>Consultar unidades, horários e mapa.</small></button>
+          <button class="quick-card" data-route="alerts"><i class="bi bi-bell"></i><span>Avisos <em class="notification-badge d-none" data-alert-badge>0</em></span><small>Ler notificações importantes.</small></button>
+        </div>
+      </section>
+
+      <section id="view-campaigns" class="view">
+        <div class="page-heading"><div><p class="eyebrow">Campanhas</p><h1>Campanhas ativas</h1><p>O usuário comum visualiza apenas campanhas abertas para participação.</p></div></div>
+        <div id="activeCampaignsList" class="campaign-grid"></div>
+      </section>
+
+      <section id="view-admin" class="view admin-only">
+        <div class="page-heading">
+          <div>
+            <p class="eyebrow">Administração</p>
+            <h1>Painel de controle</h1>
+            <p>Cadastre campanhas, avisos e notificações em um único lugar.</p>
+          </div>
+        </div>
+
+        <div class="summary-grid">
+          <article class="summary-card"><i class="bi bi-megaphone"></i><strong id="adminCampaignCount">0</strong><span>campanhas</span></article>
+          <article class="summary-card"><i class="bi bi-bell"></i><strong id="adminAlertCount">0</strong><span>avisos</span></article>
+          <article class="summary-card"><i class="bi bi-eye"></i><strong id="adminUnreadCount">0</strong><span>não lidos</span></article>
+        </div>
+
+        <div class="segmented">
+          <button class="active" data-admin-tab="campaigns"><i class="bi bi-megaphone"></i> Campanhas</button>
+          <button data-admin-tab="alerts"><i class="bi bi-bell"></i> Avisos e notificações</button>
+        </div>
+
+        <div id="admin-campaigns" class="admin-panel active">
+          <div class="admin-grid">
+            <form id="campaignForm" class="app-card form-card">
+              <div class="form-title">
+                <div><p class="eyebrow">Cadastro</p><h2 id="campaignFormTitle">Nova campanha</h2></div>
+                <span>Campanha</span>
+              </div>
+              <label for="campaignVaccine">Vacina</label>
+              <input id="campaignVaccine" class="form-control" placeholder="Ex: Gripe / Influenza">
+              <div class="form-row">
+                <div><label for="campaignStart">Data de início</label><input id="campaignStart" type="date" class="form-control"></div>
+                <div><label for="campaignEnd">Data final</label><input id="campaignEnd" type="date" class="form-control"></div>
+              </div>
+              <label for="campaignAudience">Público-alvo</label>
+              <input id="campaignAudience" class="form-control" placeholder="Ex: Idosos e gestantes">
+              <label for="campaignStatus">Status</label>
+              <select id="campaignStatus" class="form-select">
+                <option>Ativa</option>
+                <option>Planejada</option>
+                <option>Encerrada</option>
+              </select>
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary"><i class="bi bi-check2-circle"></i><span id="campaignSaveText">Salvar campanha</span></button>
+                <button type="button" id="deleteCampaignBtn" class="btn btn-outline-danger d-none"><i class="bi bi-trash"></i> Excluir</button>
+                <button type="button" id="clearCampaignBtn" class="btn btn-light border">Limpar</button>
+              </div>
+            </form>
+            <div class="app-card table-card">
+              <div class="list-title"><div><p class="eyebrow">Base atual</p><h2>Campanhas cadastradas</h2></div><span id="campaignListStatus"></span></div>
+              <div class="table-responsive"><table class="table app-table" id="campaignTable"><thead><tr><th>Vacina</th><th>Período</th><th>Público</th><th>Status</th></tr></thead><tbody></tbody></table></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="admin-alerts" class="admin-panel">
+          <div class="admin-grid">
+            <form id="alertForm" class="app-card form-card">
+              <div class="form-title">
+                <div><p class="eyebrow">Cadastro</p><h2 id="alertFormTitle">Novo aviso</h2></div>
+                <span>Notificação</span>
+              </div>
+              <div class="form-row">
+                <div><label for="alertType">Tipo</label><select id="alertType" class="form-select"><option value="info">Informativo</option><option value="warning">Atenção</option></select></div>
+                <div><label for="alertIcon">Ícone</label><select id="alertIcon" class="form-select"><option value="bi-info-circle-fill">Informação</option><option value="bi-exclamation-triangle-fill">Atenção</option><option value="bi-megaphone-fill">Campanha</option><option value="bi-calendar-event-fill">Calendário</option><option value="bi-hospital-fill">Postos</option></select></div>
+              </div>
+              <label for="alertTitle">Título do aviso</label>
+              <input id="alertTitle" class="form-control" placeholder="Ex: Campanha da gripe ativa">
+              <label for="alertDescription">Descrição curta</label>
+              <input id="alertDescription" class="form-control" placeholder="Resumo exibido no card">
+              <label for="alertModalTitle">Título do detalhe</label>
+              <input id="alertModalTitle" class="form-control" placeholder="Título do modal">
+              <label for="alertBody">Mensagem completa</label>
+              <textarea id="alertBody" class="form-control" rows="4" placeholder="Explique a orientação para o usuário"></textarea>
+              <label for="alertFooter">Orientação final</label>
+              <input id="alertFooter" class="form-control" placeholder="Ex: Leve documento e cartão SUS.">
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary"><i class="bi bi-check2-circle"></i><span id="alertSaveText">Salvar aviso</span></button>
+                <button type="button" id="deleteAlertBtn" class="btn btn-outline-danger d-none"><i class="bi bi-trash"></i> Excluir</button>
+                <button type="button" id="clearAlertBtn" class="btn btn-light border">Limpar</button>
+              </div>
+            </form>
+            <div class="app-card table-card">
+              <div class="list-title"><div><p class="eyebrow">Central</p><h2>Avisos cadastrados</h2></div><span id="alertListStatus"></span></div>
+              <div class="table-responsive"><table class="table app-table" id="alertTable"><thead><tr><th>Aviso</th><th>Tipo</th><th>Leitura</th></tr></thead><tbody></tbody></table></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="view-vaccination" class="view">
+        <div class="page-heading"><div><p class="eyebrow">Carteira digital</p><h1>Minha vacinação</h1><p>Acompanhe progresso, próximas doses e histórico.</p></div></div>
+        <div class="segmented" id="vaccineTabs"><button class="active" data-vaccine-tab="list"><i class="bi bi-clipboard2-pulse"></i> Vacinação</button><button data-vaccine-tab="calendar"><i class="bi bi-calendar3"></i> Calendário</button><button data-vaccine-tab="history"><i class="bi bi-clock-history"></i> Histórico</button></div>
+        <div id="vaccines-list" class="vaccine-panel active">
+          <div class="app-card progress-card"><div><h2>Progresso vacinal</h2><strong id="progressPercent">0%</strong></div><div class="progress-line"><span id="progressBar"></span></div><p id="progressText">0 de 0 vacinas concluídas</p></div>
+          <div id="vaccineList" class="stack-list"></div>
+        </div>
+        <div id="vaccines-calendar" class="vaccine-panel"><div class="app-card list-card"><h2>Próximas doses</h2><div id="calendarList" class="stack-list"></div></div></div>
+        <div id="vaccines-history" class="vaccine-panel"><div class="app-card list-card"><h2>Histórico</h2><div id="historyList" class="stack-list"></div></div></div>
+      </section>
+
+      <section id="view-posts" class="view">
+        <div class="page-heading"><div><p class="eyebrow">Unidades próximas</p><h1>Postos de saúde</h1><p>Consulte unidades, horários e mapa de localização.</p></div></div>
+        <div id="postsList" class="post-grid"></div>
+        <div class="app-card map-card">
+          <div class="map-heading">
+            <div>
+              <p class="eyebrow">Mapa</p>
+              <h2>Região de atendimento</h2>
+            </div>
+            <span class="badge-soft badge-info">Belo Horizonte</span>
+          </div>
+          <iframe title="Mapa de Belo Horizonte" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3751.5387993641716!2d-43.9377!3d-19.9191!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xa696f531944d25%3A0xa7dfd4aa11d47d8d!2sBelo%20Horizonte%2C%20MG!5e0!3m2!1spt-BR!2sbr!4v1699000000000!5m2!1spt-BR!2sbr" loading="lazy"></iframe>
+        </div>
+      </section>
+
+      <section id="view-alerts" class="view">
+        <div class="page-heading"><div><p class="eyebrow">Central</p><h1>Avisos</h1><p>Acompanhe campanhas, lembretes e notificações importantes.</p></div></div>
+        <div id="alertsList" class="stack-list"></div>
+      </section>
+
+    </section>
+  </main>
+
+  <nav id="bottomNav" class="bottom-nav d-none" aria-label="Navegação principal">
+    <button class="active" data-route="home"><i class="bi bi-house-fill"></i><span>Início</span></button>
+    <button class="user-only" data-route="campaigns"><i class="bi bi-megaphone"></i><span>Campanhas</span></button>
+    <button class="admin-only" data-route="admin"><i class="bi bi-sliders"></i><span>Admin</span></button>
+    <button data-route="vaccination"><i class="bi bi-clipboard2-pulse"></i><span>Vacinação</span></button>
+    <button data-route="posts"><i class="bi bi-hospital"></i><span>Postos</span></button>
+    <button data-route="alerts"><i class="bi bi-bell"></i><em class="notification-badge d-none" data-alert-badge>0</em><span>Avisos</span></button>
+  </nav>
+
+  <div class="modal fade" id="accountModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered"><div class="modal-content">
+      <div class="modal-header"><h2 class="modal-title h5">Criar conta</h2><button class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button></div>
+      <div class="modal-body">
+        <form id="accountForm">
+          <label for="accountName">Nome completo</label><input id="accountName" class="form-control">
+          <label for="accountEmail">E-mail</label><input id="accountEmail" type="email" class="form-control">
+          <label for="accountLogin">Login</label><input id="accountLogin" class="form-control">
+          <label for="accountPassword">Senha</label><input id="accountPassword" type="password" class="form-control">
+          <label for="accountPassword2">Confirmar senha</label><input id="accountPassword2" type="password" class="form-control">
+        </form>
+      </div>
+      <div class="modal-footer"><button class="btn btn-light border" data-bs-dismiss="modal">Cancelar</button><button id="saveAccount" class="btn btn-primary">Salvar conta</button></div>
+    </div></div>
+  </div>
+
+  <div class="modal fade" id="alertDetailModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered"><div class="modal-content" id="alertDetailContent"></div></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

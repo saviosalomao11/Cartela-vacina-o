@@ -1,0 +1,171 @@
+{
+  "usuarios": [
+    {
+      "id": "1",
+      "login": "admin",
+      "senha": "123",
+      "nome": "Administrador",
+      "email": "admin@clickvacinas.local",
+      "data_nascimento": "1990-05-20",
+      "contato": "admin@clickvacinas.local",
+      "dependentes": [
+        {
+          "id": 1,
+          "nome": "Ana Silva",
+          "data_nascimento": "2023-05-10"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "login": "user",
+      "senha": "123",
+      "nome": "Usuário Teste",
+      "email": "user@clickvacinas.local"
+    }
+  ],
+  "campanhas": [
+    {
+      "id": "1",
+      "vacina": "Influenza (Gripe)",
+      "data_inicio": "2026-04-20",
+      "data_fim": "2026-05-30",
+      "publico_alvo": "Idosos, gestantes, crianças até 6 anos e professores",
+      "status": "Ativa"
+    },
+    {
+      "id": "2",
+      "vacina": "Dengue (QDenga)",
+      "data_inicio": "2026-02-10",
+      "data_fim": "2026-08-15",
+      "publico_alvo": "Crianças e adolescentes de 4 a 14 anos",
+      "status": "Ativa"
+    },
+    {
+      "id": "3",
+      "vacina": "Multivacinação (Atualização de Caderneta)",
+      "data_inicio": "2026-06-01",
+      "data_fim": "2026-06-15",
+      "publico_alvo": "Crianças e adolescentes menores de 15 anos",
+      "status": "Planejada"
+    },
+    {
+      "id": "4",
+      "vacina": "Sarampo",
+      "data_inicio": "2025-03-01",
+      "data_fim": "2025-04-15",
+      "publico_alvo": "Trabalhadores da saúde e adultos até 29 anos",
+      "status": "Encerrada"
+    }
+  ],
+  "historico_vacinacao": [
+    {
+      "id": "1",
+      "usuario_id": 1,
+      "dependente_id": null,
+      "nome_vacina": "Covid-19",
+      "status": "tomada",
+      "data_aplicacao": "2026-01-15"
+    },
+    {
+      "id": "2",
+      "usuario_id": 1,
+      "dependente_id": 1,
+      "nome_vacina": "Hepatite B",
+      "status": "atrasada",
+      "data_aplicacao": null
+    }
+  ],
+  "postos_saude": [
+    {
+      "id": "1",
+      "nome": "UBS Jardim Alvorada",
+      "endereco": "Rua Exemplo, 123",
+      "horario": "08h - 17h"
+    },
+    {
+      "id": "2",
+      "nome": "UBS Centro",
+      "endereco": "Av. Brasil, 456",
+      "horario": "08h - 17h"
+    },
+    {
+      "id": "3",
+      "nome": "UBS Industrial",
+      "endereco": "Rua das Industrias, 789",
+      "horario": "09h - 18h"
+    }
+  ],
+  "vacinas": [
+    {
+      "id": "1",
+      "nome": "Febre Amarela",
+      "concluida": true,
+      "campanha": false,
+      "nomeCampanha": null,
+      "dataConclusao": "2026-06-27",
+      "dataProximaDose": "2036-06-27",
+      "visivel": true
+    },
+    {
+      "id": "2",
+      "nome": "Gripe",
+      "concluida": true,
+      "campanha": true,
+      "nomeCampanha": "Influenza 2026",
+      "dataConclusao": "2026-06-10",
+      "dataProximaDose": "2027-06-10",
+      "visivel": true
+    },
+    {
+      "id": "3",
+      "nome": "Hepatite B",
+      "concluida": false,
+      "campanha": false,
+      "nomeCampanha": null,
+      "dataConclusao": null,
+      "dataProximaDose": null,
+      "visivel": true
+    }
+  ],
+  "registros": [
+    {
+      "id": "1",
+      "usuarioId": 1,
+      "vacinaId": 1,
+      "status": "concluido",
+      "data": "2026-06-10"
+    }
+  ],
+  "alertas": [
+    {
+      "id": "1",
+      "tipo": "warning",
+      "titulo": "Nova campanha de Influenza",
+      "descricao_curta": "Campanha ativa de 20/04 a 30/05 para grupos prioritários.",
+      "modal_titulo": "Campanha de Vacinação contra a Gripe 2026",
+      "modal_corpo": "A campanha da <strong>Influenza</strong> já começou em Belo Horizonte. Proteja-se antes do inverno chegar.",
+      "modal_rodape": "Localize o posto mais próximo na área de Postos.",
+      "icone": "bi-exclamation-triangle-fill",
+      "lido": false,
+      "usuario_id": 1
+    },
+    {
+      "id": "2",
+      "tipo": "info",
+      "titulo": "Campanha da Dengue prorrogada",
+      "descricao_curta": "Vacinação de crianças e adolescentes até 15 de agosto.",
+      "modal_titulo": "Vacinação contra a Dengue",
+      "modal_corpo": "A campanha foi estendida para ampliar a cobertura do público-alvo.",
+      "modal_rodape": "A aplicação exige duas doses com intervalo de 3 meses.",
+      "icone": "bi-info-circle-fill",
+      "lido": false,
+      "usuario_id": 1
+    }
+  ],
+  "configuracoes_gerais": {
+    "cidade": "Belo Horizonte",
+    "ultima_atualizacao": "2026-06-27",
+    "total_postos_ativos": 152
+  }
+}

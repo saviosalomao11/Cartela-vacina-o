@@ -1,0 +1,10 @@
+desktop.ini
+Icon?
+.DS_Store
+.vscode
+node_modules
+package-lock.json
+.env
+server-output.log
+server-error.log
+npm-debug.log*
