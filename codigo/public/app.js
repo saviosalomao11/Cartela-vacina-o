@@ -23,7 +23,10 @@ function init() {
 function bindEvents() {
   byId("loginForm")?.addEventListener("submit", handleLogin);
   byId("logoutBtn")?.addEventListener("click", logout);
-  byId("openRegister")?.addEventListener("click", () => showModal("accountModal"));
+  byId("openRegister")?.addEventListener("click", (event) => {
+  event.preventDefault();
+  showModal("accountModal");
+});
   byId("saveAccount")?.addEventListener("click", handleAccountCreate);
   byId("campaignForm")?.addEventListener("submit", saveCampaign);
   byId("clearCampaignBtn")?.addEventListener("click", resetCampaignForm);
